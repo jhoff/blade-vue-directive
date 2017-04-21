@@ -1,0 +1,8 @@
+.DS_Store
+/.idea/
+/vendor/
+/node_modules/
+/composer.phar
+/composer.lock
+/*.sublime-workspace
+/coverage

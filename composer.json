@@ -1,0 +1,41 @@
+{
+    "name": "jhoff/blade-vue-directive",
+    "description": "Vue directive for Laravel Blade",
+    "keywords": [
+        "laravel",
+        "blade",
+        "vue.js"
+    ],
+    "homepage": "https://github.com/jhoff/blade-vue-directive",
+    "license": "MIT",
+    "authors": [
+        {
+          "name": "Jordan Hoff",
+          "email": "jhoff484@gmail.com"
+        }
+    ],
+    "require": {
+        "laravel/framework": "^5.4"
+    },
+    "require-dev": {
+        "mockery/mockery": "^0.9.5",
+        "orchestra/testbench": "^3.4",
+        "phpmd/phpmd": "^2.6",
+        "phpunit/phpunit": "~6.0",
+        "squizlabs/php_codesniffer": "^2.8"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Jhoff\\BladeVueDirective\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Jhoff\\BladeVueDirective\\Testing\\": "tests"
+        }
+    }
+}

@@ -1,0 +1,16 @@
+before_script:
+    - composer install --prefer-dist --no-progress --no-suggest --quiet
+    - export APP_ENV=testing
+    - export APP_KEY=$(php -r 'echo md5(uniqid());')
+
+unitTests:
+    script:
+        - phpdbg -qrr -dmemory_limit=1G vendor/bin/phpunit
+
+codeSniffer:
+    script:
+        - php vendor/bin/phpcs --standard=PSR2 -w --colors src
+
+messDetector:
+    script:
+        - php vendor/bin/phpmd src text phpmd.xml
