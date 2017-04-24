@@ -152,7 +152,7 @@ To use an object property in your component, make sure to make it an `Object` ty
 <a name="camelcase-to-kebab-case"></a>
 ### camelCase to kebab-case
 
-If you provide camel cased property names, they will automatically be converted to kebab case for you. This is especially useful since vue.js will (still work)[https://vuejs.org/v2/guide/components.html#camelCase-vs-kebab-case] with camelCase variable names.
+If you provide camel cased property names, they will automatically be converted to kebab case for you. This is especially useful since vue.js will [still work](https://vuejs.org/v2/guide/components.html#camelCase-vs-kebab-case) with camelCase variable names.
 
 ```html
     @vue('camel-to-kebab', ['camelCasedVariable' => 'value']])
