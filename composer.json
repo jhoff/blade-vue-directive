@@ -15,6 +15,7 @@
         }
     ],
     "require": {
+        "php": ">=7.0",
         "laravel/framework": "^5.4"
     },
     "require-dev": {
@@ -30,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Jhoff\\BladeVueDirective\\": "src"
+            "Jhoff\\BladeVue\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Jhoff\\BladeVueDirective\\Testing\\": "tests"
+            "Jhoff\\BladeVue\\Testing\\": "tests"
         }
     }
 }
