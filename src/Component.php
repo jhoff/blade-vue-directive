@@ -93,6 +93,10 @@ class Component
             return [":$name", $value ? 'true' : 'false'];
         }
 
+        if (is_numeric($value)) {
+            return [":$name", $value];
+        }
+
         if (!is_scalar($value) && !is_null($value)) {
             return [":$name", htmlspecialchars(json_encode($value), ENT_QUOTES, 'UTF-8', false)];
         }

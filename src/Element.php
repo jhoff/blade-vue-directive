@@ -45,7 +45,9 @@ class Element
      */
     public function getStartTag() : string
     {
-        return "<{$this->name} {$this->renderAttributes()}>";
+        $attributes = $this->renderAttributes();
+
+        return "<{$this->name}" . ( $attributes ? ' ' . $attributes : '' ) . '>';
     }
 
     /**
@@ -63,6 +65,18 @@ class Element
     }
 
     /**
+     * Builds an attribute string
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return string
+     */
+    protected function buildAttribute(string $key, $value) : string
+    {
+        return is_null($value) ? $key : sprintf('%s="%s"', $key, $value);
+    }
+
+    /**
      * Renders all of the attributes in the proper format
      *
      * @return string
@@ -70,11 +84,7 @@ class Element
     protected function renderAttributes() : string
     {
         return implode(' ', array_map(
-            function ($key, $value) {
-                return is_null($value) ?
-                    sprintf("%s", $key) :
-                    sprintf("%s=\"%s\"", $key, $value);
-            },
+            [$this, 'buildAttribute'],
             array_keys($this->attributes),
             $this->attributes
         ));
