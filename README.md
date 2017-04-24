@@ -18,6 +18,8 @@ Laravel Blade Vue Directive provides a blade directive for vue.js inline compone
     - [Scalars Example](#scalars-example)
     - [Booleans and Numbers Example](#booleans-and-numbers-example)
     - [Objects and Arrays Example](#objects-and-arrays-example)
+    - [camelCase to kebab-case](#camelcase-to-kebab-case)
+    - [Using compact to pass variables directly through](#using-compact-to-pass-variables-directly-through)
 
 <!-- /MarkdownTOC -->
 
@@ -26,7 +28,7 @@ Laravel Blade Vue Directive provides a blade directive for vue.js inline compone
 
 To install the Laravel Blade Vue Directive, simply run `composer require blade-vue-directive` in a terminal, or if you prefer to manually install you can the following in your `composer.json` file and then run `composer install` from the terminal:
 
-```json
+```javascripton
 {
     "require": {
         "jhoff/blade-vue-directive": "1.*"
@@ -89,7 +91,7 @@ Renders in html as
 
 Then, to use the properties in your vue.js component, add them to `props` in your component definition. See [Component::props](https://vuejs.org/v2/guide/components.html#Props) for more information.
 
-```js
+```javascript
     Vue.component('page-title', {
         props: ['title']
     });
@@ -137,7 +139,7 @@ Notice that the object is json encoded, html escaped and the property is prepend
 
 To use an object property in your component, make sure to make it an `Object` type:
 
-```js
+```javascript
     Vue.component('welcome-header', {
         props: {
             user: {
@@ -147,3 +149,57 @@ To use an object property in your component, make sure to make it an `Object` ty
     });
 ```
 
+<a name="camelcase-to-kebab-case"></a>
+### camelCase to kebab-case
+
+If you provide camel cased property names, they will automatically be converted to kebab case for you. This is especially useful since vue.js will (still work)[https://vuejs.org/v2/guide/components.html#camelCase-vs-kebab-case] with camelCase variable names.
+
+```html
+    @vue('camel-to-kebab', ['camelCasedVariable' => 'value']])
+        <div>You can still use it in camelCase see :) @{{ camelCasedVariable }}!</div>
+    @endvue
+```
+
+Renders in html as
+
+```html
+    <component inline-template v-cloak is="camel-to-kebab" camel-cased-variable="value">
+        <div>You can still use it in camelCase see :) {{ camelCasedVariable }}!</div>
+    </component>
+```
+
+Just make sure that it's still camelCased in the component props definition:
+
+```javascript
+    Vue.component('camel-to-kebab', {
+        props: ['camelCasedVariable']
+    });
+```
+
+<a name="using-compact-to-pass-variables-directly-through"></a>
+### Using compact to pass variables directly through
+
+Just like when you render a view from a controller, you can use compact to pass a complex set of variables directly through to vue:
+
+```html
+    <?php list($one, $two, $three) = ['one', 'two', 'three']; ?>
+    @vue('compact-variables', compact('one', 'two', 'three'))
+        <div>Variables are passed through by name: @{{ one }}, @{{ two }}, @{{ three }}.</div>
+    @endvue
+```
+
+Renders in html as
+
+```html
+    <component inline-template v-cloak is="compact-variables" one="one" two="two" three="three">
+        <div>Variables are passed through by name: {{ one }}, {{ two }}, {{ three }}.</div>
+    </component>
+```
+
+Then in vue, make sure to define all of your properties:
+
+```javascript
+    Vue.component('compact-variables', {
+        props: ['one', 'two', 'three']
+    });
+```
