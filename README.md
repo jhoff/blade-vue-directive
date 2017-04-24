@@ -146,3 +146,4 @@ To use an object property in your component, make sure to make it an `Object` ty
         }
     });
 ```
+
