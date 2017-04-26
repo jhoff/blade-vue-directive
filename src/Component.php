@@ -98,7 +98,7 @@ class Component
         }
 
         if (!is_scalar($value) && !is_null($value)) {
-            return [":$name", htmlspecialchars(json_encode($value), ENT_QUOTES, 'UTF-8', false)];
+            return [":$name", e(json_encode($value))];
         }
 
         return [$name, $value];
