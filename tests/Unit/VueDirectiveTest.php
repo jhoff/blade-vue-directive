@@ -16,7 +16,7 @@ class VueDirectiveTest extends TestCase
         $code = VueDirective::start('"component", ["foo" => "bar"]');
 
         $this->assertEquals(
-            '<?php echo \Jhoff\BladeVue\Component::start("component", ["foo" => "bar"]); ?>',
+            '<?php echo \Jhoff\BladeVue\Component::start("component", ["foo" => "bar"]); ?><div>',
             $code
         );
     }
@@ -29,7 +29,7 @@ class VueDirectiveTest extends TestCase
         $code = VueDirective::end();
 
         $this->assertEquals(
-            '<?php echo \Jhoff\BladeVue\Component::end(); ?>',
+            '</div><?php echo \Jhoff\BladeVue\Component::end(); ?>',
             $code
         );
     }

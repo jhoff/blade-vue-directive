@@ -11,7 +11,7 @@ class VueDirective
      */
     public static function end() : string
     {
-        return '<?php echo \Jhoff\BladeVue\Component::end(); ?>';
+        return '</div><?php echo \Jhoff\BladeVue\Component::end(); ?>';
     }
 
     /**
@@ -22,6 +22,6 @@ class VueDirective
      */
     public static function start(string $expression) : string
     {
-         return "<?php echo \Jhoff\BladeVue\Component::start($expression); ?>";
+         return "<?php echo \Jhoff\BladeVue\Component::start($expression); ?><div>";
     }
 }
