@@ -38,5 +38,12 @@
         "psr-4": {
             "Jhoff\\BladeVue\\Testing\\": "tests"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jhoff\\BladeVue\\DirectiveServiceProvider"
+            ]
+        }
     }
 }
