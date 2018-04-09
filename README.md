@@ -26,7 +26,7 @@ Laravel Blade Vue Directive provides a blade directive for vue.js inline compone
 <a name="installation"></a>
 ## Installation
 
-To install the Laravel Blade Vue Directive, simply run `composer require blade-vue-directive` in a terminal, or if you prefer to manually install you can the following in your `composer.json` file and then run `composer install` from the terminal:
+To install the Laravel Blade Vue Directive, simply run `composer require jhoff/blade-vue-directive` in a terminal, or if you prefer to manually install you can the following in your `composer.json` file and then run `composer install` from the terminal:
 
 ```javascripton
 {
@@ -36,7 +36,7 @@ To install the Laravel Blade Vue Directive, simply run `composer require blade-v
 }
 ```
 
-Then all you need to do is add the new provider to the providers array of `config/app.php`:
+For Laravel 5.5 and later, the package will automatically register. If you're using Laravel before 5.5, then you need to add the provider to the providers array of `config/app.php`.
 
 ```php
   'providers' => [
