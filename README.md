@@ -29,7 +29,7 @@ Laravel Blade Vue Directive provides blade directives for vue.js single file and
 
 In 2.0, the `@vue` and `@endvue` directives have been renamed to `@inlinevue` and `@endinlinevue`. The new `@vue` and `@endvue` directives should now be used for non-inline components.
 
-** WARNING: You'll need to make sure that you run `php artisan view:clear` after upgrading **
+**WARNING: You'll need to make sure that you run `php artisan view:clear` after upgrading**
 
 <a id="installation"></a>
 ## Installation
