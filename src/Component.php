@@ -44,12 +44,20 @@ class Component
             throw new Exception('Second argument for vue directive must be an associtive array');
         }
 
-        return (new static)
-            ->setAttribute('inline-template')
+        $isInlineTemplate = !(array_has($attributes, 'inline-template') && array_get($attributes,
+                'inline-template') === false);
+
+        $component = (new static)
             ->setAttribute('v-cloak')
             ->setAttribute('is', $name)
             ->setAttributes($attributes)
             ->getStartTag();
+        
+        if($isInlineTemplate){
+            $component->setAttribute('inline-template');
+        }
+        
+        return $component;
     }
 
     /**
