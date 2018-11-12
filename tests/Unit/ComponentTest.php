@@ -4,8 +4,9 @@ namespace Jhoff\BladeVue\Testing\Unit;
 
 use Exception;
 use TypeError;
-use Jhoff\BladeVue\Component;
+use Jhoff\BladeVue\Components\Basic;
 use Jhoff\BladeVue\Testing\TestCase;
+use Jhoff\BladeVue\Components\Inline;
 
 class ComponentTest extends TestCase
 {
@@ -14,7 +15,19 @@ class ComponentTest extends TestCase
      */
     public function basicComponentRendersStartTag()
     {
-        $tag = Component::start('foobar');
+        $tag = Basic::start('foobar');
+
+        $this->assertRegExp('/\<component.*\>/', $tag);
+        $this->assertContains('v-cloak', $tag);
+        $this->assertContains('is="foobar"', $tag);
+    }
+
+    /**
+     * @test
+     */
+    public function inlineComponentRendersStartTag()
+    {
+        $tag = Inline::start('foobar');
 
         $this->assertRegExp('/\<component.*\>/', $tag);
         $this->assertContains('inline-template', $tag);
@@ -27,7 +40,7 @@ class ComponentTest extends TestCase
      */
     public function basicComponentRendersEndTag()
     {
-        $tag = Component::end();
+        $tag = Basic::end();
 
         $this->assertEquals('</component>', $tag);
     }
@@ -38,7 +51,7 @@ class ComponentTest extends TestCase
     public function tooManyArgumentsThrowsException()
     {
         try {
-            Component::start('foobar', [], 'this is invalid');
+            Basic::start('foobar', [], 'this is invalid');
         } catch (Exception $exception) {
             $this->assertEquals('Too many arguments passed to vue directive', $exception->getMessage());
             return;
@@ -53,7 +66,7 @@ class ComponentTest extends TestCase
     public function nonArraySecondArgumentThrowsTypeError()
     {
         try {
-            Component::start('foobar', 'this is invalid');
+            Basic::start('foobar', 'this is invalid');
         } catch (TypeError $typeError) {
             $this->assertContains('::start() must be of the type array', $typeError->getMessage());
             return;
@@ -68,7 +81,7 @@ class ComponentTest extends TestCase
     public function nonAssociativeArraySecondArgumentThrowsException()
     {
         try {
-            Component::start('foobar', [1, 2, 3]);
+            Basic::start('foobar', [1, 2, 3]);
         } catch (Exception $exception) {
             $this->assertEquals(
                 'Second argument for vue directive must be an associtive array',
@@ -85,7 +98,7 @@ class ComponentTest extends TestCase
      */
     public function componentWithBooleanArgumentsRendersStartTag()
     {
-        $tag = Component::start('foobar', ['foo' => true, 'baz' => false]);
+        $tag = Basic::start('foobar', ['foo' => true, 'baz' => false]);
 
         $this->assertContains(':foo="true"', $tag);
         $this->assertContains(':baz="false"', $tag);
@@ -96,7 +109,7 @@ class ComponentTest extends TestCase
      */
     public function componentWithScalarArgumentsRendersStartTag()
     {
-        $tag = Component::start('foobar', ['foo' => 'bar', 'baz' => 123]);
+        $tag = Basic::start('foobar', ['foo' => 'bar', 'baz' => 123]);
 
         $this->assertContains('foo="bar"', $tag);
         $this->assertContains(':baz="123"', $tag);
@@ -107,8 +120,9 @@ class ComponentTest extends TestCase
      */
     public function componentWithArrayOrObjectArgumentsRendersStartTag()
     {
-        $tag = Component::start(
-            'foobar', [
+        $tag = Basic::start(
+            'foobar',
+            [
                 'foo' => [1, 2, 3],
                 'bar' => (object) ['foo' => 'bar'],
                 'baz' => ['baz' => 'qux']

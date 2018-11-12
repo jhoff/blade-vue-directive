@@ -6,3 +6,4 @@
 /composer.lock
 /*.sublime-workspace
 /coverage
+.phpunit.result.cache

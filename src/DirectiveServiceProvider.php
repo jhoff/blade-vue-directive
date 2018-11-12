@@ -2,8 +2,9 @@
 
 namespace Jhoff\BladeVue;
 
-use Jhoff\BladeVue\VueDirective;
+use Jhoff\BladeVue\Directives\Basic;
 use Illuminate\Support\Facades\Blade;
+use Jhoff\BladeVue\Directives\Inline;
 use Illuminate\Support\ServiceProvider;
 
 class DirectiveServiceProvider extends ServiceProvider
@@ -23,11 +24,19 @@ class DirectiveServiceProvider extends ServiceProvider
     public function register()
     {
         Blade::directive('vue', function ($expression) {
-            return VueDirective::start($expression);
+            return Basic::start($expression);
         });
 
         Blade::directive('endvue', function () {
-            return VueDirective::end();
+            return Basic::end();
+        });
+
+        Blade::directive('inlinevue', function ($expression) {
+            return Inline::start($expression);
+        });
+
+        Blade::directive('endinlinevue', function () {
+            return Inline::end();
         });
     }
 }

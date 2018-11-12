@@ -47,7 +47,7 @@ class Element
     {
         $attributes = $this->renderAttributes();
 
-        return "<{$this->name}" . ( $attributes ? ' ' . $attributes : '' ) . '>';
+        return "<{$this->name}" . ($attributes ? ' ' . $attributes : '') . '>';
     }
 
     /**

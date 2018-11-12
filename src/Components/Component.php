@@ -1,13 +1,13 @@
 <?php
 
-namespace Jhoff\BladeVue;
+namespace Jhoff\BladeVue\Components;
 
 use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Jhoff\BladeVue\Element;
 
-class Component
+abstract class Component
 {
     /**
      * Dom element builder instance
@@ -15,6 +15,13 @@ class Component
      * @var \Jhoff\BladeVue\Element
      */
     protected $element;
+
+    /**
+     * Default attributes to apply to the component
+     *
+     * @var array
+     */
+    protected static $defaultAttributes = [];
 
     /**
      * Builds a component element and returns the ending element tag
@@ -45,8 +52,7 @@ class Component
         }
 
         return (new static)
-            ->setAttribute('inline-template')
-            ->setAttribute('v-cloak')
+            ->setAttributes(static::$defaultAttributes)
             ->setAttribute('is', $name)
             ->setAttributes($attributes)
             ->getStartTag();

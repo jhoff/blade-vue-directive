@@ -10,8 +10,9 @@ Laravel Blade Vue Directive provides a blade directive for vue.js inline compone
 [![Code Coverage](https://scrutinizer-ci.com/g/jhoff/blade-vue-directive/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/jhoff/blade-vue-directive/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jhoff/blade-vue-directive/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jhoff/blade-vue-directive/?branch=master)
 
-<!-- MarkdownTOC autolink="true" autoanchor="true" bracket="round" depth="4" -->
+<!-- MarkdownTOC autolink="true" autoanchor="true" bracket="round" -->
 
+- [Upgrade from 1.1.x to 2.0.0](#upgrade-from-11x-to-200)
 - [Installation](#installation)
 - [Usage](#usage)
     - [Basic Example](#basic-example)
@@ -23,7 +24,14 @@ Laravel Blade Vue Directive provides a blade directive for vue.js inline compone
 
 <!-- /MarkdownTOC -->
 
-<a name="installation"></a>
+<a id="upgrade-from-11x-to-200"></a>
+## Upgrade from 1.1.x to 2.0.0
+
+In 2.0, the `@vue` and `@endvue` directives have been renamed to `@inlinevue` and `@endinlinevue`. The new `@vue` and `@endvue` directives should now be used for non-inline components.
+
+** WARNING: You'll need to make sure that you run `php artisan view:clear` after upgrading **
+
+<a id="installation"></a>
 ## Installation
 
 To install the Laravel Blade Vue Directive, simply run `composer require jhoff/blade-vue-directive` in a terminal, or if you prefer to manually install you can the following in your `composer.json` file and then run `composer install` from the terminal:
@@ -31,7 +39,7 @@ To install the Laravel Blade Vue Directive, simply run `composer require jhoff/b
 ```javascripton
 {
     "require": {
-        "jhoff/blade-vue-directive": "1.*"
+        "jhoff/blade-vue-directive": "2.*"
     }
 }
 ```
@@ -46,31 +54,47 @@ For Laravel 5.5 and later, the package will automatically register. If you're us
   ],
 ```
 
-<a name="usage"></a>
+<a id="usage"></a>
 ## Usage
 
 The Laravel Blade Vue Directive was written to be simple and intuitive to use. It's not opinionated about how you use your vue.js components. Simply provide a component name and (optionally) an associative array of properties.
 
-<a name="basic-example"></a>
+<a id="basic-example"></a>
 ### Basic Example
 
 Using the vue directive with no arguments in your blade file
 
 ```html
     @vue('my-component')
-        <div>Some content</div>
+        <div>Some optional slot content</div>
     @endvue
 ```
 
 Renders in html as
 
 ```html
-    <component inline-template v-cloak is="my-component">
-        <div>Some content</div>
+    <component v-cloak is="my-component">
+        <div>Some optional slot content</div>
     </component>
 ```
 
-<a name="scalars-example"></a>
+Note that the contents between the start and end tag are optional and will be provided as [slot contents](https://vuejs.org/v2/guide/components-slots.html). To use an inline-template, use the `@inlinevue` directive instead:
+
+```html
+    @inlinevue('my-component')
+        <div>Some inline template content</div>
+    @endinlinevue
+```
+
+Renders in html as
+
+```html
+    <component inline-template v-cloak is="my-component">
+        <div>Some inline template content</div>
+    </component>
+```
+
+<a id="scalars-example"></a>
 ### Scalars Example
 
 Using the vue directive with an associative array as the second argument will automatically translate into native properties that you can use within your vue.js components.
@@ -84,7 +108,7 @@ Using the vue directive with an associative array as the second argument will au
 Renders in html as
 
 ```html
-    <component inline-template v-cloak is="page-title" title="Welcome to my page">
+    <component v-cloak is="page-title" title="Welcome to my page">
         <h1>{{ title }}</h1>
     </component>
 ```
@@ -97,7 +121,7 @@ Then, to use the properties in your vue.js component, add them to `props` in you
     });
 ```
 
-<a name="booleans-and-numbers-example"></a>
+<a id="booleans-and-numbers-example"></a>
 ### Booleans and Numbers Example
 
 Properties that are booleans or numeric will be bound automatically as well
@@ -111,12 +135,12 @@ Properties that are booleans or numeric will be bound automatically as well
 Renders in html as
 
 ```html
-    <component inline-template v-cloak is="report-viewer" :show="true" :report="8675309">
+    <component v-cloak is="report-viewer" :show="true" :report="8675309">
         <h1 v-if="show">Report #{{ report }}</h1>
     </component>
 ```
 
-<a name="objects-and-arrays-example"></a>
+<a id="objects-and-arrays-example"></a>
 ### Objects and Arrays Example
 
 The vue directive will automatically handle any objects or arrays to make sure that vue.js can interact with them without any additional effort.
@@ -130,7 +154,7 @@ The vue directive will automatically handle any objects or arrays to make sure t
 Renders in html as
 
 ```html
-    <component inline-template v-cloak is="welcome-header" :user="{&quot;name&quot;:&quot;Jordan Hoff&quot;}">
+    <component v-cloak is="welcome-header" :user="{&quot;name&quot;:&quot;Jordan Hoff&quot;}">
         <h2>Welcome {{ user.name }}!</h2>
     </component>
 ```
@@ -149,7 +173,7 @@ To use an object property in your component, make sure to make it an `Object` ty
     });
 ```
 
-<a name="camelcase-to-kebab-case"></a>
+<a id="camelcase-to-kebab-case"></a>
 ### camelCase to kebab-case
 
 If you provide camel cased property names, they will automatically be converted to kebab case for you. This is especially useful since vue.js will [still work](https://vuejs.org/v2/guide/components.html#camelCase-vs-kebab-case) with camelCase variable names.
@@ -176,7 +200,7 @@ Just make sure that it's still camelCased in the component props definition:
     });
 ```
 
-<a name="using-compact-to-pass-variables-directly-through"></a>
+<a id="using-compact-to-pass-variables-directly-through"></a>
 ### Using compact to pass variables directly through
 
 Just like when you render a view from a controller, you can use compact to pass a complex set of variables directly through to vue:

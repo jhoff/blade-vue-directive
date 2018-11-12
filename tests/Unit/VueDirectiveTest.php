@@ -3,20 +3,21 @@
 namespace Jhoff\BladeVue\Testing\Unit;
 
 use Jhoff\BladeVue\Element;
-use Jhoff\BladeVue\VueDirective;
+use Jhoff\BladeVue\Directives\Basic;
 use Jhoff\BladeVue\Testing\TestCase;
+use Jhoff\BladeVue\Directives\Inline;
 
 class VueDirectiveTest extends TestCase
 {
     /**
      * @test
      */
-    public function startDirectiveReturnsCorrectPhpBlock()
+    public function basicStartDirectiveReturnsCorrectPhpBlock()
     {
-        $code = VueDirective::start('"component", ["foo" => "bar"]');
+        $code = Basic::start('"component", ["foo" => "bar"]');
 
         $this->assertEquals(
-            '<?php echo \Jhoff\BladeVue\Component::start("component", ["foo" => "bar"]); ?><div>',
+            '<?php echo \Jhoff\BladeVue\Components\Basic::start("component", ["foo" => "bar"]); ?><div>',
             $code
         );
     }
@@ -24,12 +25,38 @@ class VueDirectiveTest extends TestCase
     /**
      * @test
      */
-    public function endDirectiveReturnsCorrectPhpBlock()
+    public function basicEndDirectiveReturnsCorrectPhpBlock()
     {
-        $code = VueDirective::end();
+        $code = Basic::end();
 
         $this->assertEquals(
-            '</div><?php echo \Jhoff\BladeVue\Component::end(); ?>',
+            '</div><?php echo \Jhoff\BladeVue\Components\Basic::end(); ?>',
+            $code
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function inlineStartDirectiveReturnsCorrectPhpBlock()
+    {
+        $code = Inline::start('"component", ["foo" => "bar"]');
+
+        $this->assertEquals(
+            '<?php echo \Jhoff\BladeVue\Components\Inline::start("component", ["foo" => "bar"]); ?><div>',
+            $code
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function inlineEndDirectiveReturnsCorrectPhpBlock()
+    {
+        $code = Inline::end();
+
+        $this->assertEquals(
+            '</div><?php echo \Jhoff\BladeVue\Components\Inline::end(); ?>',
             $code
         );
     }

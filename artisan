@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+require 'vendor/autoload.php';
+
+$artisan = new TwoThirds\ArtisanAnywhere\Artisan(__DIR__);
+
+$artisan->setConfig([
+    'test-suite' => require('./vendor/two-thirds/laravel-test-suite/config/default.php'),
+    'test-suite.php-cs-fixer.folders' => ['./src', './tests'],
+    'test-suite.phpmd.folders' => ['./src', './tests']
+]);
+
+$artisan->registerCommands([
+    TwoThirds\TestSuite\Console\RunTestCommand::class,
+    TwoThirds\TestSuite\Console\RunPhpUnitCommand::class,
+    TwoThirds\TestSuite\Console\RunPhpCsFixerCommand::class,
+    TwoThirds\TestSuite\Console\RunPhpmdCommand::class,
+]);
+
+exit($artisan->handle());

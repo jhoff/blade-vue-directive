@@ -1,8 +1,8 @@
 <?php
 
-namespace Jhoff\BladeVue;
+namespace Jhoff\BladeVue\Directives;
 
-class VueDirective
+class Inline
 {
     /**
      * Php code required to render the ending component html tag
@@ -11,7 +11,7 @@ class VueDirective
      */
     public static function end() : string
     {
-        return '</div><?php echo \Jhoff\BladeVue\Component::end(); ?>';
+        return '</div><?php echo \Jhoff\BladeVue\Components\Inline::end(); ?>';
     }
 
     /**
@@ -22,6 +22,6 @@ class VueDirective
      */
     public static function start(string $expression) : string
     {
-         return "<?php echo \Jhoff\BladeVue\Component::start($expression); ?><div>";
+        return "<?php echo \Jhoff\BladeVue\Components\Inline::start($expression); ?><div>";
     }
 }
