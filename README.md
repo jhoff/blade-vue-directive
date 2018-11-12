@@ -1,7 +1,7 @@
 Laravel Blade Vue Directive
 ==============
 
-Laravel Blade Vue Directive provides a blade directive for vue.js inline components.
+Laravel Blade Vue Directive provides blade directives for vue.js single file and inline template components.
 
 [![Latest Stable Version](https://img.shields.io/github/release/jhoff/blade-vue-directive.svg?style=flat-square)](https://packagist.org/packages/jhoff/blade-vue-directive)
 [![Total Downloads](https://img.shields.io/packagist/dt/jhoff/blade-vue-directive.svg?style=flat-square)](https://packagist.org/packages/jhoff/blade-vue-directive)
@@ -36,7 +36,7 @@ In 2.0, the `@vue` and `@endvue` directives have been renamed to `@inlinevue` an
 
 To install the Laravel Blade Vue Directive, simply run `composer require jhoff/blade-vue-directive` in a terminal, or if you prefer to manually install you can the following in your `composer.json` file and then run `composer install` from the terminal:
 
-```javascripton
+```javascript
 {
     "require": {
         "jhoff/blade-vue-directive": "2.*"
