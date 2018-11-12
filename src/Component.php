@@ -50,14 +50,13 @@ class Component
         $component = (new static)
             ->setAttribute('v-cloak')
             ->setAttribute('is', $name)
-            ->setAttributes($attributes)
-            ->getStartTag();
+            ->setAttributes($attributes);
         
         if($isInlineTemplate){
             $component->setAttribute('inline-template');
         }
         
-        return $component;
+        return $component->getStartTag();
     }
 
     /**
