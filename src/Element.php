@@ -73,7 +73,15 @@ class Element
      */
     protected function buildAttribute(string $key, $value) : string
     {
-        return is_null($value) ? $key : sprintf('%s="%s"', $key, $value);
+        if (is_numeric($key)) {
+            return $value;
+        }
+
+        if (is_null($value)) {
+            return $key;
+        }
+
+        return sprintf('%s="%s"', $key, $value);
     }
 
     /**

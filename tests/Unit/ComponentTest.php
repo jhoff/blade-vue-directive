@@ -18,8 +18,8 @@ class ComponentTest extends TestCase
         $tag = Basic::start('foobar');
 
         $this->assertRegExp('/\<component.*\>/', $tag);
-        $this->assertContains('v-cloak', $tag);
-        $this->assertContains('is="foobar"', $tag);
+        $this->assertRegExp('/[\s\>]v-cloak[\s\>]/', $tag);
+        $this->assertRegExp('/[\s\>]is="foobar"[\s\>]/', $tag);
     }
 
     /**
@@ -30,9 +30,9 @@ class ComponentTest extends TestCase
         $tag = Inline::start('foobar');
 
         $this->assertRegExp('/\<component.*\>/', $tag);
-        $this->assertContains('inline-template', $tag);
-        $this->assertContains('v-cloak', $tag);
-        $this->assertContains('is="foobar"', $tag);
+        $this->assertRegExp('/[\s\>]inline-template[\s\>]/', $tag);
+        $this->assertRegExp('/[\s\>]v-cloak[\s\>]/', $tag);
+        $this->assertRegExp('/[\s\>]is="foobar"[\s\>]/', $tag);
     }
 
     /**
@@ -100,8 +100,8 @@ class ComponentTest extends TestCase
     {
         $tag = Basic::start('foobar', ['foo' => true, 'baz' => false]);
 
-        $this->assertContains(':foo="true"', $tag);
-        $this->assertContains(':baz="false"', $tag);
+        $this->assertRegExp('/[\s\>]:foo="true"[\s\>]/', $tag);
+        $this->assertRegExp('/[\s\>]:baz="false"[\s\>]/', $tag);
     }
 
     /**
@@ -111,8 +111,8 @@ class ComponentTest extends TestCase
     {
         $tag = Basic::start('foobar', ['foo' => 'bar', 'baz' => 123]);
 
-        $this->assertContains('foo="bar"', $tag);
-        $this->assertContains(':baz="123"', $tag);
+        $this->assertRegExp('/[\s\>]foo="bar"[\s\>]/', $tag);
+        $this->assertRegExp('/[\s\>]:baz="123"[\s\>]/', $tag);
     }
 
     /**
@@ -129,8 +129,8 @@ class ComponentTest extends TestCase
             ]
         );
 
-        $this->assertContains(':foo="[1,2,3]"', $tag);
-        $this->assertContains(':bar="{&quot;foo&quot;:&quot;bar&quot;}"', $tag);
-        $this->assertContains(':baz="{&quot;baz&quot;:&quot;qux&quot;}"', $tag);
+        $this->assertRegExp('/[\s\>]:foo="\[1,2,3\]"[\s\>]/', $tag);
+        $this->assertRegExp('/[\s\>]:bar="{&quot;foo&quot;:&quot;bar&quot;}"[\s\>]/', $tag);
+        $this->assertRegExp('/[\s\>]:baz="{&quot;baz&quot;:&quot;qux&quot;}"[\s\>]/', $tag);
     }
 }
