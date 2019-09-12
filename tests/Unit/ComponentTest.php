@@ -68,7 +68,7 @@ class ComponentTest extends TestCase
         try {
             Basic::start('foobar', 'this is invalid');
         } catch (TypeError $typeError) {
-            $this->assertContains('::start() must be of the type array', $typeError->getMessage());
+            $this->assertStringContainsString('::start() must be of the type array', $typeError->getMessage());
             return;
         }
 

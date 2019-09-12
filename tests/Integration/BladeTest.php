@@ -13,9 +13,9 @@ class BladeTest extends TestCase
     {
         $output = $this->renderBasicBlade('"my-component"');
 
-        $this->assertContains('<component', $output);
-        $this->assertContains('is="my-component"', $output);
-        $this->assertContains('</component>', $output);
+        $this->assertStringContainsString('<component', $output);
+        $this->assertStringContainsString('is="my-component"', $output);
+        $this->assertStringContainsString('</component>', $output);
     }
 
     /**
@@ -25,10 +25,10 @@ class BladeTest extends TestCase
     {
         $output = $this->renderBasicBlade('"my-component", ["foo" => "bar"]');
 
-        $this->assertContains('<component', $output);
-        $this->assertContains('is="my-component"', $output);
-        $this->assertContains('foo="bar"', $output);
-        $this->assertContains('</component>', $output);
+        $this->assertStringContainsString('<component', $output);
+        $this->assertStringContainsString('is="my-component"', $output);
+        $this->assertStringContainsString('foo="bar"', $output);
+        $this->assertStringContainsString('</component>', $output);
     }
     /**
      * @test
@@ -37,10 +37,10 @@ class BladeTest extends TestCase
     {
         $output = $this->renderInlineBlade('"my-component"');
 
-        $this->assertContains('<component', $output);
-        $this->assertContains('inline-template', $output);
-        $this->assertContains('is="my-component"', $output);
-        $this->assertContains('</component>', $output);
+        $this->assertStringContainsString('<component', $output);
+        $this->assertStringContainsString('inline-template', $output);
+        $this->assertStringContainsString('is="my-component"', $output);
+        $this->assertStringContainsString('</component>', $output);
     }
 
     /**
@@ -50,11 +50,11 @@ class BladeTest extends TestCase
     {
         $output = $this->renderInlineBlade('"my-component", ["foo" => "bar"]');
 
-        $this->assertContains('<component', $output);
-        $this->assertContains('inline-template', $output);
-        $this->assertContains('is="my-component"', $output);
-        $this->assertContains('foo="bar"', $output);
-        $this->assertContains('</component>', $output);
+        $this->assertStringContainsString('<component', $output);
+        $this->assertStringContainsString('inline-template', $output);
+        $this->assertStringContainsString('is="my-component"', $output);
+        $this->assertStringContainsString('foo="bar"', $output);
+        $this->assertStringContainsString('</component>', $output);
     }
 
     /**
